@@ -43,9 +43,24 @@ app.delete('/books/:bookId', async (req, res) => {
   res.send(deletedBook)
 })
 
-app.put('/books', async (req, res) => {
-  const book = await Books.updateOne(req.body, {genre: "Modernist Fiction"})
-  res.send(book)
+// ! Updating using whole body with pre-specified update
+// app.put('/books', async (req, res) => {
+//   const book = await Books.updateOne(req.body, {genre: "Modernist Fiction"})
+//   res.send(book)
+// })
+
+// ! Two-step approach
+// app.put('/books/:bookId', async (req, res) => {
+//   const Book = await Books.findById(req.params.bookId)
+//   const updatedBook = Books.updatedOne(Book, req.body)
+//   res.send(updatedBook)
+// })
+
+
+// ! All in one updated by ID
+app.put('/books/:bookId', async (req, res) => {
+  const updatedBook = await Books.findByIdAndUpdate(req.params.bookId, req.body)
+  res.send(updatedBook)
 })
 
 app.listen(port, () => {
