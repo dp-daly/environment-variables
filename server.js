@@ -33,9 +33,14 @@ app.get('/books/:bookId', async (req, res) => {
   res.send(book)
 })
 
-app.delete('/books', async (req, res) => {
-  const book = await Books.deleteOne(req.body)
-  res.send(book)
+// app.delete('/books', async (req, res) => {
+//   const book = await Books.deleteOne(req.body)
+//   res.send(book)
+// })
+
+app.delete('/books/:bookId', async (req, res) => {
+  const deletedBook = await Books.findByIdAndDelete(req.params.bookId)
+  res.send(deletedBook)
 })
 
 app.put('/books', async (req, res) => {
