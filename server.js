@@ -9,13 +9,15 @@ const app = express();
 mongoose.connect(process.env.MONGODB_URI);
 
 app.get('/', (req, res) => {
-  res.send('The server is running');
+  res.render('home.ejs');
 });
 
 app.get('/books', async (req, res) => {
-  const books = await Books.find({});
+  const books = await Books.find();
   console.log(books)
-  res.send(books)
+  res.render('all-books.ejs', {
+    books,
+  })
 })
 
 app.use(express.json());
