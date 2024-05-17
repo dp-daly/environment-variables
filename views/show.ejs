@@ -9,17 +9,25 @@
 </head>
 <body>
     <%- include('./partials/nav') %>
+    <div class="whole-book-record">
+    <div class="book-body">
     <h1><i><%= book.title %></i>, <%= book.author %></h1>
     <%# I'd like to add conditional logic to NOT show image placeholder if no value was entered into the form or no src is present %>
     <img src="<%=book.image%>" alt="<%=book.title%> cover image" width="200">
     <h3><%= book.publisher %>, <%= book.year %></h3>
     <p><%= book.details %></p>
-    <div id="actions">
-    <form action="/books/<%=book._id%>?_method=DELETE" method="POST">
-        <button type="submit">Delete <%= book.name %></button>
-      </form>
-      <a href="/books/<%= book._id %>/edit">Edit</a>
-      <a href="/books">Back to your shelf</a>
     </div>
+
+    <div class="column">
+        <div class="action-wrapper">
+        <button class="book-btn"><a href="/books/<%= book._id %>/edit">Edit details</a></button>
+        <form action="/books/<%=book._id%>?_method=DELETE" method="POST">
+          <button class="book-btn" type="submit">Remove</button>
+        </form>
+    </div>
+        <a href="/books">Back to your shelf</a>
+    </div>
+
+</div>
 </body>
 </html>

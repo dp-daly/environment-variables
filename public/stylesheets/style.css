@@ -8,13 +8,6 @@ a {
     text-decoration: none;
   }
 
-body {
-    display: flex;
-    flex-direction: column;
-    height: 100vh;
-    margin: 10px;
-}
-
 #navbar {
     display: flex;
     background-color: black;
@@ -22,6 +15,50 @@ body {
     justify-content: flex-start;
     align-items: center;
     gap: 20px;
-    height: 130%;
+    width: 129.85vh;
     padding: 10px;
 }
+
+body {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    margin: 10px;
+}
+
+/* User-created book page */
+
+.whole-book-record {
+    display: flex;
+    width: 129.85vh;
+}
+
+.book-body {
+    width: 100vh;
+    margin: 0px 20px 0px 0px;
+}
+
+.column {
+    width: 27vh;
+    background-color: black;
+    padding: 10px;
+}
+
+.back-wrapper {
+    padding: 20px;
+}
+
+.action-wrapper {
+    display: flex;
+    gap: 5px;
+}
+
+.book-btn {
+    background-color: hotpink;
+}
+
+.book-btn a {
+    color: black;
+    text-decoration: none;
+}
+
