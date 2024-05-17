@@ -94,7 +94,6 @@ app.delete('/books/:bookId', async (req, res) => {
   const updatedBook = await Books.findByIdAndUpdate(req.params.bookId, req.body)
   res.redirect(`/books/${req.params.bookId}`)
 
-  mongoose.disconnect()
 })
 
 /*-------------------------------- Listener --------------------------------*/
