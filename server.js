@@ -5,6 +5,7 @@ const morgan = require("morgan");
 require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
+const path = require("path");
 const Books = require('./models/books.js');
 
 const port = 3000;
@@ -20,6 +21,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }))
 app.use(methodOverride("_method"));
 app.use(morgan("dev")); 
+app.use(express.static(path.join(__dirname, "public")));
 
 /*-------------------------------- Routes --------------------------------*/
 
@@ -79,10 +81,7 @@ app.delete('/books/:bookId', async (req, res) => {
 
 
 // ! All in one updated by ID
-// app.put('/books/:bookId', async (req, res) => {
-//   const updatedBook = await Books.findByIdAndUpdate(req.params.bookId, req.body)
-//   res.send(updatedBook)
-// })
+
 
   app.get('/books/:bookId/edit', async (req, res) => {
     const foundBook = await Books.findById(req.params.bookId);
@@ -90,6 +89,13 @@ app.delete('/books/:bookId', async (req, res) => {
       book: foundBook,
     });
   });
+
+  app.put('/books/:bookId', async (req, res) => {
+  const updatedBook = await Books.findByIdAndUpdate(req.params.bookId, req.body)
+  res.redirect(`/books/${req.params.bookId}`)
+
+  mongoose.disconnect()
+})
 
 /*-------------------------------- Listener --------------------------------*/
 

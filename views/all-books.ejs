@@ -3,14 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>This month's offering</title>
+    <title>Your shelf</title>
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+</head>
 </head>
 <body>
     <%- include('./partials/nav') %>
     <ul>
         <% books.forEach(book => { %>
         <li>
-            <a href="/books/<%= book._id %>"><i><%= book.title %></i>, <%= book.author %></a>
+            <a href="/books/<%=book._id%>"><i><%=book.title%>,</i> <%= book.author %></a>
         </li>
     <% }) %>
     </ul>

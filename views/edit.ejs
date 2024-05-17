@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit <%= book.title %></title>
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+</head>
 </head>
 <body>
     <%- include('./partials/nav') %>
@@ -27,7 +29,7 @@
     <label for="details">Please provide a brief synopsis:</label>
     <input type="text" name="details" value="<%= book.details %>">
 
-    <button type="submit">Add book to this month's offering</button>
+    <button type="submit">Edit</button>
 </form>
 </body>
 </html>

@@ -3,11 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Submit a book</title>
+    <title>Add to your shelf</title>
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+</head>
 </head>
 <body>
     <%- include('./partials/nav') %>
-<h1>Submit a book</h1>
+<h1>Add book to your shelf</h1>
 
 <form action="/books" method="POST">
     <label for="title">Title:</label>
@@ -22,12 +24,14 @@
     <input type="text" name="language">
     <label for="publisher">Country:</label>
     <input type="text" name="country">
-    <label for="genre">Genre:</label>
+    <label for="genre">Genre <i>(optional)</i>:</label>
     <input type="text" name="genre">
-    <label for="details">Please provide a brief synopsis:</label>
+    <label for="details">Please provide a brief synopsis <i>(optional)</i>:</label>
+    <input type="text" name="image">
+    <label for="details">Image URL <i>(optional)</i>:</label>
     <input type="text" name="details">
 
-    <button type="submit">Add book to this month's offering</button>
+    <button type="submit">Add book to your shelf</button>
 </form>
     
 </body>

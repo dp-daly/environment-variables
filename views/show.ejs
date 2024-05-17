@@ -4,10 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><%= book.title %></title>
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+</head>
 </head>
 <body>
     <%- include('./partials/nav') %>
     <h1><i><%= book.title %></i>, <%= book.author %></h1>
+    <img src="<%=book.image%>" alt="<%=book.title%> image" width="500" height="600">
     <h3><%= book.publisher %>, <%= book.year %></h3>
     <p><%= book.details %></p>
 
