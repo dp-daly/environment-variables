@@ -1,0 +1,27 @@
+* {
+    box-sizing: border-box;
+    font-family: helvetica;
+}
+
+a {
+    color: hotpink;
+    text-decoration: none;
+  }
+
+body {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    margin: 10px;
+}
+
+#navbar {
+    display: flex;
+    background-color: black;
+    color: white;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 20px;
+    height: 130%;
+    padding: 10px;
+}
