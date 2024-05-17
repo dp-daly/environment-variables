@@ -1,3 +1,5 @@
+const methodOverride = require("method-override");
+const morgan = require("morgan"); 
 require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
@@ -7,6 +9,11 @@ const port = 3000;
 const app = express();
 
 mongoose.connect(process.env.MONGODB_URI);
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }))
+app.use(methodOverride("_method"));
+app.use(morgan("dev")); 
 
 app.get('/', (req, res) => {
   res.render('home.ejs');
@@ -19,9 +26,6 @@ app.get('/books', async (req, res) => {
     books,
   })
 })
-
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }))
 
 app.post('/books', async (req, res) => {
   console.log(req.body)
@@ -48,7 +52,7 @@ app.get('/books/:bookId', async (req, res) => {
 
 app.delete('/books/:bookId', async (req, res) => {
   const deletedBook = await Books.findByIdAndDelete(req.params.bookId)
-  res.send(deletedBook)
+  res.redirect('/books')
 })
 
 // ! Updating using whole body with pre-specified update
@@ -66,10 +70,17 @@ app.delete('/books/:bookId', async (req, res) => {
 
 
 // ! All in one updated by ID
-app.put('/books/:bookId', async (req, res) => {
-  const updatedBook = await Books.findByIdAndUpdate(req.params.bookId, req.body)
-  res.send(updatedBook)
-})
+// app.put('/books/:bookId', async (req, res) => {
+//   const updatedBook = await Books.findByIdAndUpdate(req.params.bookId, req.body)
+//   res.send(updatedBook)
+// })
+
+  app.get('/books/:bookId/edit', async (req, res) => {
+    const foundBook = await Books.findById(req.params.bookId);
+    res.render("edit.ejs", {
+      book: foundBook,
+    });
+  });
 
 app.listen(port, () => {
   console.log(`Listening on port ${port}`);

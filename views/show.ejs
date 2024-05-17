@@ -10,5 +10,11 @@
     <h1><i><%= book.title %></i>, <%= book.author %></h1>
     <h3><%= book.publisher %>, <%= book.year %></h3>
     <p><%= book.details %></p>
+
+    <form action="/books/<%=book._id%>?_method=DELETE" method="POST">
+        <button type="submit">Delete <%= book.name %></button>
+      </form>
+      <a href="/books/<%= book._id %>/edit">Edit</a>
+      <a href="/books">Back to this month's offering</a>
 </body>
 </html>
