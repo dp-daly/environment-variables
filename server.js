@@ -21,18 +21,24 @@ app.get('/books', async (req, res) => {
 })
 
 app.use(express.json());
+app.use(express.urlencoded({ extended: false }))
 
 app.post('/books', async (req, res) => {
   console.log(req.body)
   const book = await Books.create(req.body)
-  res.send(book)
+  res.redirect(`/books/${book._id}`)
 })
 
+app.get('/new-book', (req, res) => {
+  res.render('new-book.ejs')
+})
 
 app.get('/books/:bookId', async (req, res) => {
   console.log(req.params.bookId)
   const book = await Books.findById(req.params.bookId)
-  res.send(book)
+  res.render('show.ejs', {
+    book,
+  })
 })
 
 // app.delete('/books', async (req, res) => {

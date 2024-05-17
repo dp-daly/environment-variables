@@ -7,12 +7,8 @@
 </head>
 <body>
     <%- include('./partials/nav') %>
-    <ul>
-        <% books.forEach(book => { %>
-        <li>
-            <a href="/books/<%= book._id %>"><i><%= book.title %></i>, <%= book.author %></a>
-        </li>
-    <% }) %>
-    </ul>
+    <h1><i><%= book.title %></i>, <%= book.author %></h1>
+    <h3><%= book.publisher %>, <%= book.year %></h3>
+    <p><%= book.details %></p>
 </body>
 </html>
