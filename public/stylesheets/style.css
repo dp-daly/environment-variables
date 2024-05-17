@@ -15,7 +15,6 @@ a {
     justify-content: flex-start;
     align-items: center;
     gap: 20px;
-    width: 129.85vh;
     padding: 10px;
 }
 
@@ -30,7 +29,7 @@ body {
 
 .whole-book-record {
     display: flex;
-    width: 129.85vh;
+    flex: 2; 
 }
 
 .book-body {
