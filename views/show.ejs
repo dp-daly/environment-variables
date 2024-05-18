@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><%= book.title %></title>
     <link rel="stylesheet" href="/stylesheets/style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Tinos:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
 </head>
 </head>
 <body>
@@ -16,15 +19,15 @@
     <img src="<%=book.image%>" alt="<%=book.title%> cover image" width="200">
     <h3><%= book.publisher %>, <%= book.year %></h3>
     <p><%= book.details %></p>
-    </div>
-
-    <div class="column">
-        <div class="action-wrapper">
+    <div class="action-wrapper">
         <button class="book-btn"><a href="/books/<%= book._id %>/edit">Edit details</a></button>
         <form action="/books/<%=book._id%>?_method=DELETE" method="POST">
           <button class="book-btn" type="submit">Remove</button>
         </form>
     </div>
+    </div>
+
+    <div class="column">
         <a href="/books">Back to your shelf</a>
     </div>
 
