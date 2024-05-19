@@ -1,25 +1,34 @@
 * {
     box-sizing: border-box;
-    font-family: Tinos, arial;
+    font-family: Helvetica;
 }
 
 a {
-    color: hotpink;
+    color: black;
     text-decoration: none;
   }
 
+a:hover {
+    color: #f9cd0b;
+}
+
 #navbar {
     display: flex;
-    background-color: black;
-    color: white;
     justify-content: flex-start;
     align-items: center;
+    background-color: white;
     gap: 20px;
     padding: 10px;
 }
 
+#logo {
+    height: 100px;
+    background-color: black;
+}
+
 body {
     display: flex;
+    background-color: #e4d06d;
     flex-direction: column;
     height: 100vh;
     margin: 10px;
@@ -27,21 +36,82 @@ body {
 
 /* Homepage */
 
-#home-title {
-    font-size: 45px;
-}
-
 #hero {
-    background-image: url("https://s26162.pcdn.co/wp-content/uploads/2019/01/1kfI6eKr7UoDwMBWrNLHpAg.jpeg");
+    background-image: url("https://s26162.pcdn.co/wp-content/uploads/2020/12/Claude_Monet_-_Woman_with_a_Parasol_-_Madame_Monet_and_Her_Son_-_Google_Art_Project-e1465568194434.jpg");
     background-size: cover;
     display: flex;
     justify-content: space-around;
     flex-direction: column;
     align-items: center;
+    border: solid 20px white;
     height: 460px;
-    padding: 30px 0px;
+    padding: 60px 0px;
     margin: 10px 0px 10px 0px;
 }
+
+.header-text {
+    color: #f9cd0b;
+    font-size: 30px;
+    background-color: black;
+    font-style: italic;
+}
+
+#top-header {
+    width: 335px;
+}
+
+#search {
+    border: 2px black solid;
+    border-radius: 25px;
+    padding: 3px;
+    width: 350px;
+}
+
+.trending {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+    border: 2px black solid;
+    border-radius: 25px;
+    padding: 20px;
+    height: 30px;
+    background-color:black;
+    color: white;
+}
+
+#fiction {
+    border: 2px darkgreen solid;
+    border-radius: 25px;
+    padding: 3px;
+    background-color: lightgreen;
+    color: black;
+}
+
+#memoir {
+    border: 2px purple solid;
+    border-radius: 25px;
+    padding: 3px;
+    background-color: palevioletred;
+    color: black;
+}
+
+#shakespeare {
+    border: 2px orange solid;
+    border-radius: 25px;
+    padding: 3px;
+    background-color: #f9cd0b;
+    color: black;
+}
+
+#criticism {
+    border: 2px black solid;
+    border-radius: 25px;
+    padding: 3px;
+    background-color: white;
+    color: black;
+}
+
 /* User-created book page */
 
 .whole-book-record {
@@ -51,7 +121,8 @@ body {
 
 .book-body {
     width: 100vh;
-    margin: 0px 20px 0px 0px;
+    margin: 20px 20px 0px 0px;
+    background-color: white;
 }
 
 .column {
@@ -69,11 +140,12 @@ body {
 }
 
 .book-btn {
-    background-color: hotpink;
+    background-color: #C01823;
+    color: white;
 }
 
 .book-btn a {
-    color: black;
+    color: white;
     text-decoration: none;
 }
 
