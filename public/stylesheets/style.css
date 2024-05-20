@@ -12,23 +12,32 @@ a:hover {
     color: #f9cd0b;
 }
 
+#nav-wrapper {
+    display: flex;
+    justify-content: space-between;
+}
+
 #navbar {
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    background-color: white;
     gap: 20px;
     padding: 10px;
 }
 
+#signinout {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
 #logo {
-    height: 100px;
-    background-color: black;
+    height: 120px;
 }
 
 body {
     display: flex;
-    background-color: #e4d06d;
+    background-color: white;
     flex-direction: column;
     height: 100vh;
     margin: 10px;
