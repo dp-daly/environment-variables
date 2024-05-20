@@ -6,6 +6,9 @@
     <title>Register</title>
 </head>
 <body>
+
+    <%- include('../partials/nav') %>
+
     <form action="/auth/sign-up" method="POST">
         <label for="firstname">First name:</label>
         <input type="text" name="firstname" id="firstname" />
@@ -20,4 +23,5 @@
         <button type="submit">Sign up</button>
       </form>
 </body>
+<%- include('../partials/footer') %>
 </html>
