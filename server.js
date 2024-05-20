@@ -30,13 +30,6 @@ app.use(methodOverride("_method"));
 app.use(morgan("dev")); 
 app.use(express.static(path.join(__dirname, "public")));
 
-/*-------------------------------- Routes --------------------------------*/
-
-//home 
-app.get('/', (req, res) => {
-  res.render('home.ejs');
-});
-
 //Use express session for auth
 app.use(
   session({
@@ -46,10 +39,21 @@ app.use(
 })
 );
 
-//? to explore:
+
 //! pass the user to nav.ejs for conditional formatting
 //Use the locals object to pass it through without sending or rendering
+app.use((req, res, next) => {
+  res.locals.user = req.session.user;
+  next();
+});
 
+
+/*-------------------------------- Routes --------------------------------*/
+
+//home 
+app.get('/', (req, res) => {
+  res.render('home.ejs');
+});
 
 //instruct our Express app to use this authController for handling requests that match the /auth URL pattern.
 app.use("/auth", authController);

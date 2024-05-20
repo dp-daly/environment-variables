@@ -11,17 +11,22 @@
         <div id="navbar">
             <a href="/"><img src="https://i.ibb.co/Jt4PTL8/GREATREADS-2.png" alt="GREATREADS logo" id="logo"></a>
             <a href="/">Home</a>
+            <% if (user) { %>
             <p>|</p>
             <a href="/books">Your shelf</a>
             <p>|</p>
             <a href="/new-book">Add to your shelf</a>
+            <% } %>
         </div>
         <div id="signinout">
+            <% if (!user) { %>
             <a href="/auth/sign-up">Register</a>
             <p>|</p>
             <a href="/auth/sign-in">Sign in</a>
+            <% } else { %>
             <p>|</p>
             <a href="/auth/sign-out">Sign out</a>
+            <% } %>
         </div>
     </div>
 </body>
