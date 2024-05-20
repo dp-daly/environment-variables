@@ -41,7 +41,7 @@ body {
     display: flex;
     background-color: white;
     flex-direction: column;
-    height: 170vh;
+    height: 270vh;
     margin: 10px 50px 10px 50px;
 }
 
@@ -123,14 +123,22 @@ body {
     color: black;
 }
 
-.news {
+.news-row {
     display: flex;
     margin: 0px 30px 0px 30px;
     gap: 30px;
 }
 
 article {
-    width: 100vh;
+    width: 75vh;
+}
+
+.article-image {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 60vh;
+    border: 2px lightgray solid;
 }
 
 .quotetext {
