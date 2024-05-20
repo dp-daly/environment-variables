@@ -4,6 +4,7 @@ const methodOverride = require("method-override");
 const morgan = require("morgan"); 
 require('dotenv').config();
 const express = require('express');
+const session = require("express-session");
 const mongoose = require('mongoose');
 const path = require("path");
 const Books = require('./models/books.js');
@@ -36,10 +37,32 @@ app.get('/', (req, res) => {
   res.render('home.ejs');
 });
 
+//Use express session for auth
+app.use(
+  session({
+      secret: process.env.SESSION_SECRET, 
+      resave: false,
+      saveUninitialized: true,
+})
+);
+
+//? to explore:
+//! pass the user to nav.ejs for conditional formatting
+//Use the locals object to pass it through without sending or rendering
+
+
 //instruct our Express app to use this authController for handling requests that match the /auth URL pattern.
 app.use("/auth", authController);
 
 //shelf
+//auth to make sure only those sign in can view their shelf
+// app.get("/books", (req, res) => {
+//   if (!req.session.user) {
+//     res.send("Please sign in to view your shelf.")
+//   }
+// });
+
+//standard shelf page
 app.get('/books', async (req, res) => {
   const books = await Books.find();
   console.log(books)
@@ -49,6 +72,13 @@ app.get('/books', async (req, res) => {
 })
 
 //add a book
+//auth to control access 
+// app.get("/new-book", (req, res) => {
+//   if (!req.session.user) {
+//       res.send("Please sign in to add to your shelf.")
+//   }
+// });
+
 //page with form
 app.get('/new-book', (req, res) => {
   res.render('new-book.ejs')
