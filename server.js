@@ -36,7 +36,7 @@ app.get('/', (req, res) => {
   res.render('home.ejs');
 });
 
-//nstruct our Express app to use this authController for handling requests that match the /auth URL pattern.
+//instruct our Express app to use this authController for handling requests that match the /auth URL pattern.
 app.use("/auth", authController);
 
 //shelf
