@@ -8,6 +8,7 @@ const session = require("express-session");
 const mongoose = require('mongoose');
 const path = require("path");
 const Books = require('./models/books.js');
+const MongoStore = require("connect-mongo");
 
 
 const port = process.env.PORT ? process.env.PORT : 3000;
@@ -36,6 +37,9 @@ app.use(
       secret: process.env.SESSION_SECRET, 
       resave: false,
       saveUninitialized: true,
+      store: MongoStore.create({
+        mongoUrl: process.env.MONGODB_URI,
+      }),
 })
 );
 
@@ -52,6 +56,7 @@ app.use((req, res, next) => {
 /*-------------------------------- Routes --------------------------------*/
 
 //! HOME
+
 app.get('/', (req, res) => {
   res.render('home.ejs');
 });
@@ -82,6 +87,7 @@ app.get('/new-book', (req, res) => {
 });
 
 //create in database and redirect to new page with error handling
+//! Still need to figure out whether try..catch has any effect where if/else is used like this
 app.post('/books', async (req, res) => {
   try {
     const errors = [];
@@ -124,7 +130,6 @@ app.post('/books', async (req, res) => {
      });
   }
 });
-//! Still need to figure out whether catch and the if/else are needed
 
 
 //! SPECIFIC BOOK PAGE

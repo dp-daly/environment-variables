@@ -30,23 +30,23 @@
 
 <form action="/books" method="POST">
     <label for="title">Title:</label>
-    <input type="text" name="title" value="<%= typeof formData !== 'undefined' ? formData.title : '' %>">
+    <input type="text" name="title" value="<%= typeof formData !== 'undefined' ? formData.title : '' %>" autocomplete="off">
     <label for="author">Author:</label>
-    <input type="text" name="author" value="<%= typeof formData !== 'undefined' ? formData.author : '' %>">
+    <input type="text" name="author" value="<%= typeof formData !== 'undefined' ? formData.author : '' %>"  autocomplete="off">
     <label for="year">Publication year:</label>
-    <input type="text" name="year" value="<%= typeof formData !== 'undefined' ? formData.year : '' %>">
+    <input type="text" name="year" value="<%= typeof formData !== 'undefined' ? formData.year : '' %>"  autocomplete="off">
     <label for="publisher">Publisher:</label>
-    <input type="text" name="publisher" value="<%= typeof formData !== 'undefined' ? formData.publisher : '' %>">
+    <input type="text" name="publisher" value="<%= typeof formData !== 'undefined' ? formData.publisher : '' %>"  autocomplete="off">
     <label for="language">Language:</label>
-    <input type="text" name="language" value="<%= typeof formData !== 'undefined' ? formData.language : '' %>">
+    <input type="text" name="language" value="<%= typeof formData !== 'undefined' ? formData.language : '' %>"  autocomplete="off">
     <label for="country">Country:</label>
-    <input type="text" name="country" value="<%= typeof formData !== 'undefined' ? formData.country : '' %>">
+    <input type="text" name="country" value="<%= typeof formData !== 'undefined' ? formData.country : '' %>"  autocomplete="off">
     <label for="genre">Genre <i>(optional)</i>:</label>
-    <input type="text" name="genre" value="<%= typeof formData !== 'undefined' ? formData.genre : '' %>">
+    <input type="text" name="genre" value="<%= typeof formData !== 'undefined' ? formData.genre : '' %>"  autocomplete="off">
     <label for="details">Please provide a brief synopsis <i>(optional)</i>:</label>
-    <input type="text" name="details" value="<%= typeof formData !== 'undefined' ? formData.details : '' %>">
+    <input type="text" name="details" value="<%= typeof formData !== 'undefined' ? formData.details : '' %>"  autocomplete="off">
     <label for="image">Image URL <i>(optional)</i>:</label>
-    <input type="text" name="image" value="<%= typeof formData !== 'undefined' ? formData.image : '' %>">
+    <input type="text" name="image" value="<%= typeof formData !== 'undefined' ? formData.image : '' %>"  autocomplete="off">
 
     <button type="submit">Add book to your shelf</button>
 </form>

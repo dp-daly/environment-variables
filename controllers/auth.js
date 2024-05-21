@@ -52,15 +52,17 @@ router.post("/sign-in", async (req, res) => {
      username: userInDatabase.username,
   };
 
-  console.log("HELLO" + req.session.user)
+  req.session.save(() => {
+    res.redirect("/");
+  });
 
-  res.redirect("/");
 })
 
 
 router.get("/sign-out", (req, res) => {
-  req.session.destroy();
-  res.redirect("/")
+  req.session.destroy(() => {
+    res.redirect("/");
+  });
 })
 
 module.exports = router;

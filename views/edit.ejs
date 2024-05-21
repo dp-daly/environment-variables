@@ -15,23 +15,23 @@
 
 <form action="/books/<%=book._id%>?_method=PUT" method="POST">
     <label for="title">Title:</label>
-    <input type="text" name="title" value="<%= book.title %>">
+    <input type="text" name="title" value="<%= book.title %>" autocomplete="off">
     <label for="author">Author:</label>
-    <input type="text" name="author" value="<%= book.author %>">
+    <input type="text" name="author" value="<%= book.author %>" autocomplete="off">
     <label for="year">Publication year:</label>
-    <input type="text" name="year" value="<%= book.year %>">
+    <input type="text" name="year" value="<%= book.year %>" autocomplete="off">
     <label for="publisher">Publisher:</label>
-    <input type="text" name="publisher" value="<%= book.publisher %>">
+    <input type="text" name="publisher" value="<%= book.publisher %>" autocomplete="off">
     <label for="publisher">Language:</label>
-    <input type="text" name="language" value="<%= book.language %>">
+    <input type="text" name="language" value="<%= book.language %>" autocomplete="off">
     <label for="publisher">Country:</label>
-    <input type="text" name="country" value="<%= book.country %>">
+    <input type="text" name="country" value="<%= book.country %>" autocomplete="off">
     <label for="genre">Genre:</label>
-    <input type="text" name="genre" value="<%= book.genre %>">
+    <input type="text" name="genre" value="<%= book.genre %>" autocomplete="off">
     <label for="details">Please provide a brief synopsis:</label>
-    <input type="text" name="details" value="<%= book.details %>">
+    <input type="text" name="details" value="<%= book.details %>" autocomplete="off">
     <label for="image">Image URL <i>(optional)</i>:</label>
-    <input type="text" name="image" value="<%= book.image %>">
+    <input type="text" name="image" value="<%= book.image %>" autocomplete="off">
 
     <button type="submit">Edit</button>
 </form>
