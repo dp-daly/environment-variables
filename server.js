@@ -60,12 +60,6 @@ app.get('/', (req, res) => {
 app.use("/auth", authController);
 
 //! SHELF
-//auth to make sure only those sign in can view their shelf
-// app.get("/books", (req, res) => {
-//   if (!req.session.user) {
-//     res.send("Please sign in to view your shelf.")
-//   }
-// });
 
 //standard shelf page
 app.get('/books', async (req, res) => {
@@ -77,17 +71,15 @@ app.get('/books', async (req, res) => {
 })
 
 //! ADD A BOOK
-//auth to control access 
-// app.get("/new-book", (req, res) => {
-//   if (!req.session.user) {
-//       res.send("Please sign in to add to your shelf.")
-//   }
-// });
 
 //page with form
 app.get('/new-book', (req, res) => {
+  if (req.session.user) {
   res.render('new-book.ejs')
-})
+  } else {
+    res.redirect("/auth/sign-in");
+  }
+});
 
 //create in database and redirect to new page with error handling
 app.post('/books', async (req, res) => {
