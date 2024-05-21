@@ -24,6 +24,10 @@
     </p>
   <% } %>
 
+  <% if (typeof systemErrorMessage !== 'undefined') { %>
+    <p><%= systemErrorMessage %></p>
+  <% } %>
+
 <form action="/books" method="POST">
     <label for="title">Title:</label>
     <input type="text" name="title" value="<%= typeof formData !== 'undefined' ? formData.title : '' %>">

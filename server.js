@@ -83,8 +83,7 @@ app.get('/new-book', (req, res) => {
 
 //create in database and redirect to new page with error handling
 app.post('/books', async (req, res) => {
-  // try {
-
+  try {
     const errors = [];
     const yearString = req.body.year.trim();
     const year = parseInt(req.body.year, 10);
@@ -118,12 +117,12 @@ app.post('/books', async (req, res) => {
     const book = await Books.create(req.body);
     res.redirect(`/books/${book._id}`);
     }
-  // } catch (err) {
-  //   res.render('new-book.ejs', { 
-  //     errorMessages: err.message,
-  //     formData: req.body,
-  //    });
-  // }
+  } catch (err) {
+    res.render('new-book.ejs', { 
+      systemErrorMessage: err.message,
+      formData: req.body,
+     });
+  }
 });
 //! Still need to figure out whether catch and the if/else are needed
 
