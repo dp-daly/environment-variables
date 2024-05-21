@@ -26,23 +26,23 @@
 
 <form action="/books" method="POST">
     <label for="title">Title:</label>
-    <input type="text" name="title">
+    <input type="text" name="title" value="<%= typeof formData !== 'undefined' ? formData.title : '' %>">
     <label for="author">Author:</label>
-    <input type="text" name="author">
+    <input type="text" name="author" value="<%= typeof formData !== 'undefined' ? formData.author : '' %>">
     <label for="year">Publication year:</label>
-    <input type="text" name="year">
+    <input type="text" name="year" value="<%= typeof formData !== 'undefined' ? formData.year : '' %>">
     <label for="publisher">Publisher:</label>
-    <input type="text" name="publisher">
+    <input type="text" name="publisher" value="<%= typeof formData !== 'undefined' ? formData.publisher : '' %>">
     <label for="language">Language:</label>
-    <input type="text" name="language">
+    <input type="text" name="language" value="<%= typeof formData !== 'undefined' ? formData.language : '' %>">
     <label for="country">Country:</label>
-    <input type="text" name="country">
+    <input type="text" name="country" value="<%= typeof formData !== 'undefined' ? formData.country : '' %>">
     <label for="genre">Genre <i>(optional)</i>:</label>
-    <input type="text" name="genre">
+    <input type="text" name="genre" value="<%= typeof formData !== 'undefined' ? formData.genre : '' %>">
     <label for="details">Please provide a brief synopsis <i>(optional)</i>:</label>
-    <input type="text" name="details">
+    <input type="text" name="details" value="<%= typeof formData !== 'undefined' ? formData.details : '' %>">
     <label for="image">Image URL <i>(optional)</i>:</label>
-    <input type="text" name="image">
+    <input type="text" name="image" value="<%= typeof formData !== 'undefined' ? formData.image : '' %>">
 
     <button type="submit">Add book to your shelf</button>
 </form>

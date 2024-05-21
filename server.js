@@ -115,13 +115,20 @@ app.post('/books', async (req, res) => {
     }
 
     if (errors.length > 0) {
-      res.render('new-book.ejs', { errorMessages: errors });
+      // This is controlling the flow by not allowing the book to be created until the errors are cleared; however, an error isn't being "thrown" per se. To fix?
+      res.render('new-book.ejs', { 
+        errorMessages: errors,
+        formData: req.body,
+       });
     } else {
     const book = await Books.create(req.body);
     res.redirect(`/books/${book._id}`);
     }
   } catch (err) {
-    res.render('new-book.ejs', { errorMessages: err.message });
+    res.render('new-book.ejs', { 
+      errorMessages: err.message,
+      formData: req.body,
+     });
   }
 });
 
