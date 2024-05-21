@@ -10,7 +10,7 @@ const path = require("path");
 const Books = require('./models/books.js');
 
 
-const port = 3000;
+const port = process.env.PORT ? process.env.PORT : 3000;
 const authController = require("./controllers/auth.js");
 const app = express();
 
@@ -91,9 +91,11 @@ app.get('/new-book', (req, res) => {
 
 //create in database and redirect to new page with error handling
 app.post('/books', async (req, res) => {
-  try {
+  // try {
 
     const errors = [];
+    const yearString = req.body.year.trim();
+    const year = parseInt(req.body.year, 10);
 
     if (!req.body.title.trim()) {
       errors.push('Please provide the book title');
@@ -101,8 +103,8 @@ app.post('/books', async (req, res) => {
     if (!req.body.author.trim()) {
       errors.push('Please provide the author');
     }
-    if (!req.body.year.trim()) {
-      errors.push('Please provide the publication year');
+    if (!req.body.year.trim() || isNaN(year) || yearString.length !== 4) {
+      errors.push('Please provide a four-digit publication year');
     }
     if (!req.body.publisher.trim()) {
       errors.push('Please provide the publisher');
@@ -124,13 +126,14 @@ app.post('/books', async (req, res) => {
     const book = await Books.create(req.body);
     res.redirect(`/books/${book._id}`);
     }
-  } catch (err) {
-    res.render('new-book.ejs', { 
-      errorMessages: err.message,
-      formData: req.body,
-     });
-  }
+  // } catch (err) {
+  //   res.render('new-book.ejs', { 
+  //     errorMessages: err.message,
+  //     formData: req.body,
+  //    });
+  // }
 });
+//! Still need to figure out whether catch and the if/else are needed
 
 
 //! SPECIFIC BOOK PAGE
