@@ -42,6 +42,7 @@ app.use(
 
 //! pass the user to nav.ejs for conditional formatting
 //Use the locals object to pass it through without sending or rendering
+//Could also add user to indiviual get request locals objects
 app.use((req, res, next) => {
   res.locals.user = req.session.user;
   next();

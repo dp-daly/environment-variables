@@ -40,7 +40,7 @@ a:hover {
 body {
     background-color: #F6EADA;
     flex-direction: column;
-    height: 290vh;
+    height: auto;
     margin: 10px 50px 10px 50px;
 }
 
