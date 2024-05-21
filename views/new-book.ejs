@@ -14,6 +14,16 @@
     <%- include('./partials/nav') %>
 <h1>Add book to your shelf</h1>
 
+  <% if (typeof errorMessages !== 'undefined' && errorMessages && errorMessages.length > 0) { %>
+    <p style="background-color:Tomato;">Invalid input:<br> 
+        <ul>
+        <% errorMessages.forEach((err) => { %>
+        <li><%= err %></li>
+        <% }); %>
+        </ul>
+    </p>
+  <% } %>
+
 <form action="/books" method="POST">
     <label for="title">Title:</label>
     <input type="text" name="title">
@@ -23,9 +33,9 @@
     <input type="text" name="year">
     <label for="publisher">Publisher:</label>
     <input type="text" name="publisher">
-    <label for="publisher">Language:</label>
+    <label for="language">Language:</label>
     <input type="text" name="language">
-    <label for="publisher">Country:</label>
+    <label for="country">Country:</label>
     <input type="text" name="country">
     <label for="genre">Genre <i>(optional)</i>:</label>
     <input type="text" name="genre">

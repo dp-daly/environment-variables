@@ -51,7 +51,7 @@ app.use((req, res, next) => {
 
 /*-------------------------------- Routes --------------------------------*/
 
-//home 
+//! HOME
 app.get('/', (req, res) => {
   res.render('home.ejs');
 });
@@ -59,7 +59,7 @@ app.get('/', (req, res) => {
 //instruct our Express app to use this authController for handling requests that match the /auth URL pattern.
 app.use("/auth", authController);
 
-//shelf
+//! SHELF
 //auth to make sure only those sign in can view their shelf
 // app.get("/books", (req, res) => {
 //   if (!req.session.user) {
@@ -76,7 +76,7 @@ app.get('/books', async (req, res) => {
   })
 })
 
-//add a book
+//! ADD A BOOK
 //auth to control access 
 // app.get("/new-book", (req, res) => {
 //   if (!req.session.user) {
@@ -89,14 +89,44 @@ app.get('/new-book', (req, res) => {
   res.render('new-book.ejs')
 })
 
-//create in database and redirect to new page
+//create in database and redirect to new page with error handling
 app.post('/books', async (req, res) => {
-  console.log(req.body)
-  const book = await Books.create(req.body)
-  res.redirect(`/books/${book._id}`)
-})
+  try {
 
-//specific book page
+    const errors = [];
+
+    if (!req.body.title.trim()) {
+      errors.push('Please provide the book title');
+    }
+    if (!req.body.author.trim()) {
+      errors.push('Please provide the author');
+    }
+    if (!req.body.year.trim()) {
+      errors.push('Please provide the publication year');
+    }
+    if (!req.body.publisher.trim()) {
+      errors.push('Please provide the publisher');
+    }
+    if (!req.body.language.trim()) {
+      errors.push('Please provide the language');
+    }
+    if (!req.body.country.trim()) {
+      errors.push('Please provide the country');
+    }
+
+    if (errors.length > 0) {
+      res.render('new-book.ejs', { errorMessages: errors });
+    } else {
+    const book = await Books.create(req.body);
+    res.redirect(`/books/${book._id}`);
+    }
+  } catch (err) {
+    res.render('new-book.ejs', { errorMessages: err.message });
+  }
+});
+
+
+//! SPECIFIC BOOK PAGE
 app.get('/books/:bookId', async (req, res) => {
   console.log(req.params.bookId)
   const book = await Books.findById(req.params.bookId)
@@ -105,13 +135,13 @@ app.get('/books/:bookId', async (req, res) => {
   })
 })
 
-//delete a book
+//! DELETE A BOOK
 app.delete('/books/:bookId', async (req, res) => {
   const deletedBook = await Books.findByIdAndDelete(req.params.bookId)
   res.redirect('/books')
 })
 
-//edit an entry
+//! EDIT AN ENTRY
 //page with form
   app.get('/books/:bookId/edit', async (req, res) => {
     const foundBook = await Books.findById(req.params.bookId);
