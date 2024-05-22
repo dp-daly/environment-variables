@@ -145,10 +145,11 @@ app.post('/books', async (req, res) => {
   } else {
     try {
       const book = await Books.create(req.body);
+      //Flash message greets the user when they preview their new entry.
       req.session.message = `${req.body.title} by ${req.body.author} successfully added to your shelf.`;
       res.redirect(`/books/${book._id}`);
     } catch (err) {
-      req.session.message = err.message;
+      req.session.message = `There was an error adding the book to your shelf. Please see details: ${err.message}`;
       res.render('new-book.ejs', { 
         systemErrorMessage: err.message,
         formData: req.body,
