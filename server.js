@@ -80,7 +80,11 @@ app.get('/books', async (req, res) => {
 //page with form
 app.get('/new-book', (req, res) => {
   if (req.session.user) {
+    try {
   res.render('new-book.ejs')
+    } catch (err) {
+      res.render("error.ejs", { errorMessage: err.message })
+    }
   } else {
     res.redirect("/auth/sign-in");
   }
@@ -162,6 +166,11 @@ app.delete('/books/:bookId', async (req, res) => {
   res.redirect(`/books/${req.params.bookId}`)
 
 })
+
+// server.js
+app.get("*", function (req, res) {
+  res.render("error.ejs", { errorMessage: "Page not found!" });
+});
 
 /*-------------------------------- Listener --------------------------------*/
 
