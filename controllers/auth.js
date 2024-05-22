@@ -48,8 +48,11 @@ router.post("/sign-in", async (req, res) => {
       return res.send("Login failed. Please try again.");
   }
 
+
+  //! This is the cookie
   req.session.user = {
      username: userInDatabase.username,
+     userId: userInDatabase._id,
   };
 
   req.session.save(() => {

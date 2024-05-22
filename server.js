@@ -144,6 +144,9 @@ app.post('/books', async (req, res) => {
     });
   } else {
     try {
+      //Here we're assigning the current user's ID to the request body as the new book is created.
+      //We've added it to the schema separately so it can be stored in the database.
+      req.body.createdBy = req.session.user.userId;
       const book = await Books.create(req.body);
       //Flash message greets the user when they preview their new entry.
       req.session.message = `${req.body.title} by ${req.body.author} successfully added to your shelf.`;
@@ -213,7 +216,24 @@ app.delete('/books/:bookId', async (req, res) => {
     }
 })
 
-// server.js
+app.get('/books/:bookId/reviews', (req, res) => {
+  res.render("new-review.ejs", { bookId: req.params.bookId, });
+});
+
+app.post('/books/:bookId/reviews', async (req, res) => {
+  if (req.session.user) {
+    const bookId = req.params.bookId;
+    console.log("THIS IS MY CONSOLE LOG" + bookId)
+    const bookFromDb = await Books.findById(bookId);
+    req.body.reviewer = req.session.user.userId;
+    bookFromDb.reviews.push(req.body);
+    await bookFromDb.save();
+    res.redirect(`/books/${bookId}`);
+  } else {
+    res.redirect("/auth/sign-in");
+  }
+  });
+
 app.get("*", function (req, res) {
   res.render("error.ejs", { systemErrorMessage: "Error 404: Page not found." });
 });

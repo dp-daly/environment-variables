@@ -22,6 +22,12 @@
     <img src="<%=book.image%>" alt="<%=book.title%> cover image" width="200">
     <h3><%= book.publisher %>, <%= book.year %></h3>
     <p><%= book.details %></p>
+    <div class="reviews">
+        <h1>Reviews</h1>
+        <% book.reviews.forEach(review => { %>
+            <%= review.text %>
+            <% }) %>
+    </div>
     <div class="action-wrapper">
         <button class="book-btn"><a href="/books/<%= book._id %>/edit">Edit details</a></button>
         <form action="/books/<%=book._id%>?_method=DELETE" method="POST">
@@ -31,6 +37,7 @@
     </div>
 
     <div class="column">
+        <a href="/books/<%= book._id %>/reviews">Add a review</a>
         <a href="/books">Back to your shelf</a>
     </div>
 
