@@ -12,6 +12,9 @@
 </head>
 <body>
     <%- include('./partials/nav') %>
+    <% if (typeof message !== 'undefined') { %>
+        <p style="background-color:rgb(71, 255, 129);"><%= message %></p>
+        <% } %>
     <div class="whole-book-record">
     <div class="book-body">
     <h1><i><%= book.title %></i>, <%= book.author %></h1>

@@ -43,15 +43,23 @@ app.use(
 })
 );
 
-
 //! pass the user to nav.ejs for conditional formatting
 //Use the locals object to pass it through without sending or rendering
-//Could also add user to indiviual get request locals objects
+//This is more efficient but is essentially the same effect as if we added user to individual get request locals objects
 app.use((req, res, next) => {
   res.locals.user = req.session.user;
   next();
 });
 
+//middleware for flashmessages
+//logic: if there is a message on the cookie, put that message on the locals object and set that message everywhere (on the session). Then wipe the message (so it disappears?)
+app.use((req, res, next) => {
+  if (req.session.message) {
+    res.locals.message = req.session.message;
+    req.session.message = null;
+  }
+  next();
+});
 
 /*-------------------------------- Routes --------------------------------*/
 
@@ -137,8 +145,10 @@ app.post('/books', async (req, res) => {
   } else {
     try {
       const book = await Books.create(req.body);
+      req.session.message = `${req.body.title} by ${req.body.author} successfully added to your shelf.`;
       res.redirect(`/books/${book._id}`);
     } catch (err) {
+      req.session.message = err.message;
       res.render('new-book.ejs', { 
         systemErrorMessage: err.message,
         formData: req.body,
@@ -168,7 +178,7 @@ app.delete('/books/:bookId', async (req, res) => {
   const deletedBook = await Books.findByIdAndDelete(req.params.bookId)
   res.redirect('/books')
     } catch(err) {
-      res.render("error.ejs", { systemErrorMessage: err.message })
+      res.render("error.ejs", { systemErrorMessage: "You must be signed in to delete a book." })
     }
   } else {
     res.redirect("/auth/sign-in")
@@ -198,13 +208,13 @@ app.delete('/books/:bookId', async (req, res) => {
   const updatedBook = await Books.findByIdAndUpdate(req.params.bookId, req.body)
   res.redirect(`/books/${req.params.bookId}`)
     } catch(err) {
-      res.render("error.ejs", { systemErrorMessage: err.message })
+      res.render("error.ejs", { systemErrorMessage: "You must be signed in to edit an entry." })
     }
 })
 
 // server.js
 app.get("*", function (req, res) {
-  res.render("error.ejs", { systemErrorMessage: "Page not found!" });
+  res.render("error.ejs", { systemErrorMessage: "Error 404: Page not found." });
 });
 
 /*-------------------------------- Listener --------------------------------*/
