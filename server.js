@@ -90,48 +90,47 @@ app.get('/new-book', (req, res) => {
   }
 });
 
-//create in database and redirect to new page with error handling
-//! Still need to figure out whether try..catch has any effect where if/else is used like this
+//create in database and redirect to new page with separate validation and system error handling
+//this could be refactored into shorter helper functions for readability
 app.post('/books', async (req, res) => {
-  try {
-    const errors = [];
-    const yearString = req.body.year.trim();
-    const year = parseInt(req.body.year, 10);
+  const validationErrors = [];
+  const yearString = req.body.year.trim();
+  const year = parseInt(req.body.year, 10);
 
-    if (!req.body.title.trim()) {
-      errors.push('Please provide the book title');
-    }
-    if (!req.body.author.trim()) {
-      errors.push('Please provide the author');
-    }
-    if (!req.body.year.trim() || isNaN(year) || yearString.length !== 4) {
-      errors.push('Please provide a four-digit publication year');
-    }
-    if (!req.body.publisher.trim()) {
-      errors.push('Please provide the publisher');
-    }
-    if (!req.body.language.trim()) {
-      errors.push('Please provide the language');
-    }
-    if (!req.body.country.trim()) {
-      errors.push('Please provide the country');
-    }
+  if (!req.body.title.trim()) {
+    validationErrors.push('Please provide the book title');
+  }
+  if (!req.body.author.trim()) {
+    validationErrors.push('Please provide the author');
+  }
+  if (!req.body.year.trim() || isNaN(year) || yearString.length !== 4) {
+    validationErrors.push('Please provide the four-digit publication year');
+  }
+  if (!req.body.publisher.trim()) {
+    validationErrors.push('Please provide the publisher');
+  }
+  if (!req.body.language.trim()) {
+    validationErrors.push('Please provide the language');
+  }
+  if (!req.body.country.trim()) {
+    validationErrors.push('Please provide the country');
+  }
 
-    if (errors.length > 0) {
-      // This is controlling the flow by not allowing the book to be created until the errors are cleared; however, an error isn't being "thrown" per se. To fix?
-      res.render('new-book.ejs', { 
-        errorMessages: errors,
-        formData: req.body,
-       });
-    } else {
-    const book = await Books.create(req.body);
-    res.redirect(`/books/${book._id}`);
-    }
-  } catch (err) {
+  if (validationErrors.length > 0) {
     res.render('new-book.ejs', { 
-      systemErrorMessage: err.message,
+      valErrorMessages: validationErrors,
       formData: req.body,
-     });
+    });
+  } else {
+    try {
+      const book = await Books.create(req.body);
+      res.redirect(`/books/${book._id}`);
+    } catch (err) {
+      res.render('new-book.ejs', { 
+        systemErrorMessage: err.message,
+        formData: req.body,
+      });
+    }
   }
 });
 

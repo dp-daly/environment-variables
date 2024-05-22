@@ -14,18 +14,26 @@
     <%- include('./partials/nav') %>
 <h1>Add book to your shelf</h1>
 
-  <% if (typeof errorMessages !== 'undefined' && errorMessages && errorMessages.length > 0) { %>
-    <p style="background-color:Tomato;">Invalid input:<br> 
+<!-- Display validation errors -->
+
+  <% if (typeof valErrorMessages !== 'undefined' && valErrorMessages && valErrorMessages.length > 0) { %>
+    <p style="background-color:rgb(255, 148, 71);">Form validation error:<br> 
         <ul>
-        <% errorMessages.forEach((err) => { %>
+        <% valErrorMessages.forEach((err) => { %>
         <li><%= err %></li>
         <% }); %>
         </ul>
     </p>
   <% } %>
 
+  <!-- Display unexpected system errors -->
+
   <% if (typeof systemErrorMessage !== 'undefined') { %>
-    <p><%= systemErrorMessage %></p>
+    <p style="background-color:Tomato;">Unexpected system error. See more details below:<br>
+    <ul>
+      <li><%= systemErrorMessage %></p></li>
+    </ul>
+  </p>
   <% } %>
 
 <form action="/books" method="POST">
