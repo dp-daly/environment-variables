@@ -57,8 +57,13 @@ app.use((req, res, next) => {
 
 //! HOME
 
+//unnecessary try catch here because it's just renders route and performs no async action?
 app.get('/', (req, res) => {
+  try {
   res.render('home.ejs');
+  } catch (err) {
+    res.render("error.ejs", {systemErrorMessage: err.message})
+  }
 });
 
 //instruct our Express app to use this authController for handling requests that match the /auth URL pattern.
@@ -68,11 +73,19 @@ app.use("/auth", authController);
 
 //standard shelf page
 app.get('/books', async (req, res) => {
+  if (req.session.user) {
+    try {
   const books = await Books.find();
   console.log(books)
   res.render('all-books.ejs', {
     books,
   })
+} catch (err) {
+  res.render("error.ejs", { systemErrorMessage: err.message })
+}
+} else {
+  res.redirect("/auth/sign-in");
+}
 })
 
 //! ADD A BOOK
@@ -83,7 +96,7 @@ app.get('/new-book', (req, res) => {
     try {
   res.render('new-book.ejs')
     } catch (err) {
-      res.render("error.ejs", { errorMessage: err.message })
+      res.render("error.ejs", { systemErrorMessage: err.message })
     }
   } else {
     res.redirect("/auth/sign-in");
@@ -137,38 +150,61 @@ app.post('/books', async (req, res) => {
 
 //! SPECIFIC BOOK PAGE
 app.get('/books/:bookId', async (req, res) => {
+  try {
   console.log(req.params.bookId)
   const book = await Books.findById(req.params.bookId)
   res.render('show.ejs', {
     book,
   })
+} catch (err) {
+  res.render("error.ejs", {systemErrorMessage: err.message})
+}
 })
 
 //! DELETE A BOOK
 app.delete('/books/:bookId', async (req, res) => {
+  if (req.session.user) {
+    try {
   const deletedBook = await Books.findByIdAndDelete(req.params.bookId)
   res.redirect('/books')
+    } catch(err) {
+      res.render("error.ejs", { systemErrorMessage: err.message })
+    }
+  } else {
+    res.redirect("/auth/sign-in")
+  }
 })
 
 //! EDIT AN ENTRY
 //page with form
   app.get('/books/:bookId/edit', async (req, res) => {
+    if (req.session.user) {
+      try {
     const foundBook = await Books.findById(req.params.bookId);
     res.render("edit.ejs", {
       book: foundBook,
     });
+  } catch(err) {
+    res.render("error.ejs", { systemErrorMessage: err.message })
+  }
+  } else {
+    res.redirect("/auth/sign-in")
+  }
   });
 
   //update db and redirect to updated page
   app.put('/books/:bookId', async (req, res) => {
+    try {
   const updatedBook = await Books.findByIdAndUpdate(req.params.bookId, req.body)
   res.redirect(`/books/${req.params.bookId}`)
-
+    } catch(err) {
+      res.render("error.ejs", { systemErrorMessage: err.message })
+    }
 })
 
 // server.js
 app.get("*", function (req, res) {
-  res.render("error.ejs", { errorMessage: "Page not found!" });
+  res.render("error.ejs", { systemErrorMessage: "Page not found!" });
 });
 
 /*-------------------------------- Listener --------------------------------*/
